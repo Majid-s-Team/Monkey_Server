@@ -1,0 +1,10 @@
+body {
+    font-family: 'Figtree', sans-serif;
+}
+
+.custom-btn {
+    background-color: #3490dc;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
