@@ -20,6 +20,6 @@
 @section('title', 'Dashboard')
 
 @section('content')
-    <h2>Welcome to the Dashboard</h2>
-    <p>This is your main dashboard page.</p>
+    <!-- <h2>Welcome to the Dashboard</h2>
+    <p>This is your main dashboard page.</p> -->
 @endsection
