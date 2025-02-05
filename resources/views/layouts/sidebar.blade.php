@@ -1,7 +1,9 @@
 <div class="sidebar bg-dark d-flex flex-column">
-   <div style="text-align: center;">  
-      <img src="{{ asset('storage/monkey.png') }}" alt="Dashboard Logo" 
-           class="text-center py-3" style="width: 100px; height: 100px; object-fit: contain; padding: 10px 0;">
+<div style="text-align: center;">  
+      <a href="{{ route('dashboard') }}">  
+         <img src="{{ asset('storage/monkey.png') }}" alt="Dashboard Logo" 
+              class="text-center py-3" style="width: 100px; height: 100px; object-fit: contain; padding: 10px 0;">
+      </a>
    </div>
    
    <!-- Dashboard Link -->
@@ -21,13 +23,14 @@
    
    <!-- Logout Link with Icon -->
    <a href="{{ route('logout') }}" class="text-white py-2 px-3 d-flex align-items-center" 
-      onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-      <i class="fas fa-sign-out-alt me-2"></i> Logout
-   </a>
+   onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+   <i class="fas fa-sign-out-alt me-2"></i> Logout
+</a>
 
-   <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-      @csrf
-   </form>
+<form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+   @csrf
+</form>
+
 </div>
 
 <!-- Sidebar Close Button for Mobile -->
