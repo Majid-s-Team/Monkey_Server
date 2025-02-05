@@ -53,16 +53,16 @@ class QuestionController extends Controller
 }
 
 
-    public function getDashboardStats()
-    {
-        $totalQuestions = Question::count();
-        $activeQuestions = Question::where('status', '1')->count();
-        $inactiveQuestions = Question::where('status', '0')->count();
-        // $questions = Question::all();
-        $questions = Question::take(5)->get();
+public function getDashboardStats()
+{
+    $totalQuestions = Question::count();
+    $activeQuestions = Question::where('status', '1')->count();
+    $inactiveQuestions = Question::where('status', '0')->count();
 
-        return view('dashboard', compact('totalQuestions', 'activeQuestions', 'inactiveQuestions','questions'));
-    }
+    $questions = Question::all();
+
+    return view('dashboard', compact('totalQuestions', 'activeQuestions', 'inactiveQuestions', 'questions'));
+}
 
     public function toggleStatus(Question $question)
     {
