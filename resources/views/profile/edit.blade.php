@@ -1,29 +1,28 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Profile') }}
-        </h2>
-    </x-slot>
+<!-- resources/views/profile/edit.blade.php -->
+@extends('layouts.app')
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('profile.partials.update-profile-information-form')
-                </div>
-            </div>
-
-            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('profile.partials.update-password-form')
-                </div>
-            </div>
-
-            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('profile.partials.delete-user-form')
-                </div>
-            </div>
+@section('content')
+<div class="container">
+    <h2 class="mb-4">Edit Profile</h2>
+    <form method="POST" action="{{ route('profile.update') }}">
+        @csrf
+        <div class="form-group mb-3">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" class="form-control" value="{{ $user->name }}" required>
         </div>
-    </div>
-</x-app-layout>
+        <div class="form-group mb-3">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" class="form-control" value="{{ $user->email }}" required>
+        </div>
+        <div class="form-group mb-3">
+            <label for="password">New Password (optional)</label>
+            <input type="password" id="password" name="password" class="form-control" placeholder="Leave blank to keep current password">
+        </div>
+        <div class="form-group mb-3">
+            <label for="password_confirmation">Confirm New Password</label>
+            <input type="password" id="password_confirmation" name="password_confirmation" class="form-control" placeholder="Confirm password">
+        </div>
+        <button type="submit" class="btn btn-primary">Update Profile</button>
+    </form>
+</div>
+@endsection

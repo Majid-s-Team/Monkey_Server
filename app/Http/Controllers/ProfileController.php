@@ -2,59 +2,53 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProfileUpdateRequest;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\View\View;
+use App\Models\User;
+use Hash;
 
 class ProfileController extends Controller
 {
-    /**
-     * Display the user's profile form.
-     */
-    public function edit(Request $request): View
+    public function show()
     {
-        return view('profile.edit', [
-            'user' => $request->user(),
-        ]);
+        $user = Auth::user(); 
+        return view('profile.view', compact('user'));
     }
 
-    /**
-     * Update the user's profile information.
-     */
-    public function update(ProfileUpdateRequest $request): RedirectResponse
+    // Edit the profile
+    public function edit()
     {
-        $request->user()->fill($request->validated());
-
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
-        }
-
-        $request->user()->save();
-
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+        $user = Auth::user(); 
+        return view('profile.edit', compact('user'));
     }
 
-    /**
-     * Delete the user's account.
-     */
-    public function destroy(Request $request): RedirectResponse
-    {
-        $request->validateWithBag('userDeletion', [
-            'password' => ['required', 'current_password'],
-        ]);
 
-        $user = $request->user();
+public function update(Request $request)
+{
+    $user = Auth::user(); 
 
-        Auth::logout();
+    // $request->validate([
+    //     'name' => 'nullable|string|max:255',
+    //     'email' => 'nullable|email|max:255|unique:users,email,' . $user->id,
+    //     'password' => 'nullable|string|min:8|confirmed', 
+    // ]);
 
-        $user->delete();
-
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-
-        return Redirect::to('/');
+    if ($request->has('name')) {
+        $user->name = $request->name;
     }
+
+    if ($request->has('email')) {
+        $user->email = $request->email;
+    }
+
+    if ($request->has('password') && $request->password) {
+        $user->password = Hash::make($request->password);
+    }
+    // dd($request->all());
+
+    $user->save();
+
+    return redirect()->route('profile.view')->with('success', 'Profile updated successfully!');
+}
+
 }

@@ -47,7 +47,29 @@ class QuestionController extends Controller
 
     public function destroy(Question $question)
     {
+        $questions = Question::all();
+
         $question->delete();
         return redirect()->route('questions.index');
     }
+
+    public function getDashboardStats()
+    {
+        $totalQuestions = Question::count();
+        $activeQuestions = Question::where('status', '1')->count();
+        $inactiveQuestions = Question::where('status', '0')->count();
+        // $questions = Question::all();
+        $questions = Question::take(5)->get();
+
+        return view('dashboard', compact('totalQuestions', 'activeQuestions', 'inactiveQuestions','questions'));
+    }
+
+    public function toggleStatus(Question $question)
+    {
+        $question->status = !$question->status;
+        $question->save();
+
+        return redirect()->route('questions.index');
+    }
+
 }

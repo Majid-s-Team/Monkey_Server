@@ -1,47 +1,158 @@
-<x-guest-layout>
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<!-- <link rel="stylesheet" type="text/css" href="style.css"> -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+</head>
+<style>
 
-    <form method="POST" action="{{ route('login') }}">
-        @csrf
+body
+{
+    background: url('/storage/monkeybg.png') #1b8c1b66;
+	background-size: 5%;
+}
+.maincontainer
+{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100vw;
+	height: 100vh;
+}
 
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
+.monkeylogin
+{
+	width: 350px;
+	height: 500px;
+	box-shadow: 0 10px 25px rgba(0, 0, 0, .2);
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	background-color: white;
+	border-radius: 40px;
+}
+.animcon
+{
+	background-color: white;
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+	overflow: hidden;
+	/*overflow hidden because to keep the hand image hidden below*/
+	margin-top:20px;
+	height: 170px;
+	width: 170px;
+	border-radius: 50%;
+    background-image: url('/storage/monkey.gif');
+	background-size: 90% 85%;
+	background-repeat: no-repeat;
+	background-position: center;
+	box-shadow: 0 10px 25px rgba(0, 0, 0, .2);
 
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
+	/*flex center to keep the hand image in the center*/
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+}
+.animcon img
+{
+	margin-top:110%;
+	height: 170px;
+	width: 170px;
+	transition: 1s;
+}
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
+.formcon
+{
+	margin-top: 38px;
+}
+input
+{
+	height: 40px;
+	width: 300px;
+	/*background-color: #254E58;*/
+	border-radius: 20px;
+	border:none;
+	color: #5a5449;
+	text-indent: 15px;
+	font-size: 100%;
+	box-shadow: 0 10px 25px rgba(0, 0, 0, .2);
+	outline: none;
+}
+input::placeholder
+{
+	color:lightgrey;
+	font-size: 100%;
+	font-weight: lighter;
+	text-indent: 15px;
+}
+.sbutton
+{
+	text-indent: 0px;
+	height: 40px;
+	width: 300px;
+	margin-top: 10px;
+	background-color: #1b8c1b66;
+	transition: "2s";
+	border: none;
+	color: white;
+	font-weight: bolder;
+	box-shadow: 0 10px 25px rgba(0, 0, 0, .2);
+	outline: none;
 
-        <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800" name="remember">
-                <span class="ms-2 text-sm text-gray-600 dark:text-gray-400">{{ __('Remember me') }}</span>
-            </label>
-        </div>
+}
+.sbutton:hover
+{
+	color: #5a5449;
+	cursor: pointer;
+}
 
-        <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('password.request') }}">
-                    <!-- {{ __('Forgot your password?') }} -->
-                </a>
-            @endif
+.foot
+{
+	color: #5a5449;
+	font-weight: lighter;
+	margin-top: 40px;
+}
 
-            <x-primary-button class="ms-3">
-                {{ __('Log in') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+</style>
+<body>
+<div class="maincontainer">
+<div class="monkeylogin">
+	<div class="animcon" id="animcon">
+		<img id="hands" src="/storage/hands.png"/>
+	</div>
+	<div class="formcon">
+	<form method="POST" action="{{ route('login') }}">
+    @csrf
+
+    <input type="email" id="mail" name="email" onclick="openeye();" class="tb" placeholder="Email" autocomplete="off"/>
+		<br/>
+		<br/>
+		<input type="password" id="pwdbar" onclick="closeye();" name="password" class="tb" placeholder="Password" />
+		<br/>
+		<br/>
+		<input type="submit" name="" class="sbutton" value="L O G I N" />
+	</form>
+	</div>
+		<footer class="foot"><a style="color: #bababa; text-decoration: none;" href="#"></a></footer>
+</div>
+</div>
+<script type="text/javascript" src="script.js"></script>
+</body>
+
+<script>
+
+var x=document.getElementById("hands");
+var y=document.getElementById("animcon");
+function closeye()
+{
+	y.style.backgroundImage="url('/storage/monkey_pwd.gif');";
+	x.style.marginTop="0%";
+}
+function openeye()
+{
+    y.style.backgroundImage = "url('/storage/monkey.gif')";
+	x.style.marginTop="110%";
+}
+</script>
+</html>

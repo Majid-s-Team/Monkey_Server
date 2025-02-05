@@ -28,7 +28,7 @@
     </style>
 </head>
 <body>
-    <button class="btn btn-primary d-md-none" id="sidebarToggle">☰ Menu</button>
+    <!-- <button class="btn btn-primary d-md-none" id="sidebarToggle">☰ Menu</button> -->
 
     @include('layouts.sidebar')
 

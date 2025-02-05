@@ -15,6 +15,7 @@
             <tr>
                 <th>ID</th>
                 <th>Question</th>
+                <th>Status</th>  <!-- New column for status -->
                 <th>Actions</th>
             </tr>
         </thead>
@@ -24,16 +25,37 @@
                     <td>{{ $question->id }}</td>
                     <td>{{ $question->question }}</td>
                     <td>
+                        <!-- Display status as badge -->
+                        <span class="badge 
+                            @if($question->status == 1)
+                                bg-success
+                            @else
+                                bg-danger
+                            @endif">
+                            {{ $question->status == 1 ? 'Active' : 'Inactive' }}
+                        </span>
+                    </td>
+                    <td>
+                        <!-- Toggle status button -->
+                        <form method="POST" action="{{ route('questions.toggleStatus', $question->id) }}" style="display:inline;">
+                            @csrf
+                            @method('POST')
+                            <button type="submit" class="btn btn-sm 
+                                @if($question->status == 1) 
+                                    btn-danger 
+                                @else 
+                                    btn-success 
+                                @endif">
+                                <i class="fas fa-sync"></i> Toggle Status
+                            </button>
+                        </form>
+                        
+                        <!-- Edit Button -->
                         <a href="{{ route('questions.edit', $question->id) }}" class="btn btn-sm btn-warning">
                             <i class="fas fa-edit"></i> Edit
                         </a>
-                        <form method="POST" action="{{ route('questions.destroy', $question->id) }}" style="display:inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-sm btn-danger">
-                                <i class="fas fa-trash"></i> Delete
-                            </button>
-                        </form>
+                        
+
                     </td>
                 </tr>
             @endforeach
