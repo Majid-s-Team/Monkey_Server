@@ -46,12 +46,12 @@ class QuestionController extends Controller
     }
 
     public function destroy(Question $question)
-    {
-        $questions = Question::all();
+{
+    $question->delete();
+    
+    return redirect()->route('questions.index')->with('success', 'Question deleted successfully.');
+}
 
-        $question->delete();
-        return redirect()->route('questions.index');
-    }
 
     public function getDashboardStats()
     {

@@ -46,7 +46,7 @@
                                 @else 
                                     btn-success 
                                 @endif">
-                                <i class="fas fa-sync"></i> Toggle Status
+                                <i class="fas fa-sync"></i> Status
                             </button>
                         </form>
                         
@@ -54,7 +54,13 @@
                         <a href="{{ route('questions.edit', $question->id) }}" class="btn btn-sm btn-warning">
                             <i class="fas fa-edit"></i> Edit
                         </a>
-                        
+                        <form method="POST" action="{{ route('questions.destroy', $question->id) }}" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this question?');">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-sm btn-danger">
+                                <i class="fas fa-trash"></i> Delete
+                            </button>
+                        </form>
 
                     </td>
                 </tr>
@@ -62,3 +68,11 @@
         </tbody>
     </table>
 @endsection
+<head><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+    body {
+    font-family: 'Poppins', sans-serif;
+   
+}
+</style>

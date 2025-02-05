@@ -74,10 +74,14 @@
             </tbody>
         </table>
     </div>
+<head><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
 
     <style>
-        /* Custom styling for the statistics */
-        .stat-value {
+body {
+    font-family: 'Poppins', sans-serif;
+   
+}        .stat-value {
             font-weight: bold;
             font-size: 2rem;
             text-align: center;
