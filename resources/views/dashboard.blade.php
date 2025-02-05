@@ -54,9 +54,9 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($questions as $question)
+                @foreach($questions as $index => $question)
                     <tr>
-                        <td>{{ $question->id }}</td>
+                        <td>{{ $index + 1 }}</td>
                         <td>{{ $question->question }}</td>
                         <td>
                             <span class="badge 

@@ -15,17 +15,16 @@
             <tr>
                 <th>ID</th>
                 <th>Question</th>
-                <th>Status</th>  <!-- New column for status -->
+                <th>Status</th>  
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
-            @foreach($questions as $question)
-                <tr>
-                    <td>{{ $question->id }}</td>
-                    <td>{{ $question->question }}</td>
+            @foreach($questions as $index => $question)
+                        <tr>
+                        <td>{{ $index + 1 }}</td>
+                        <td>{{ $question->question }}</td>
                     <td>
-                        <!-- Display status as badge -->
                         <span class="badge 
                             @if($question->status == 1)
                                 bg-success
